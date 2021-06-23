@@ -12,11 +12,9 @@
 ChatBot::ChatBot()
 {
     // invalidate data handles
-    // _image = nullptr;
     _image = nullptr;
     _chatLogic = nullptr;
     _rootNode = nullptr;
-    // _currentNode = nullptr;
     std::cout << "ChatBot Constructor without memory alloc" << std::endl;
 }
 
@@ -28,12 +26,9 @@ ChatBot::ChatBot(std::string filename)
     // invalidate data handles
     _chatLogic = nullptr;
     _rootNode = nullptr;
-    // _currentNode = nullptr;
 
     // load image into heap memory
     _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
-    // std::cout << "ChatBot _image : " << _image << std::endl;
-    // std::cout << "ChatBot this : " << this << std::endl;
 }
 
 ChatBot::~ChatBot()
@@ -70,7 +65,6 @@ ChatBot::~ChatBot()
         *_image = *object._image;
         _chatLogic = object._chatLogic;
         _rootNode = object._rootNode;
-        // _currentNode = object._currentNode;
 
     }
 
@@ -83,7 +77,6 @@ ChatBot::~ChatBot()
         *_image = *object._image;
         _chatLogic = object._chatLogic;
         _rootNode = object._rootNode;
-        // _currentNode = object._currentNode;
         return *this;
     }
 
@@ -96,8 +89,6 @@ ChatBot::~ChatBot()
         object._chatLogic = nullptr;
         _rootNode = object._rootNode;
         object._rootNode = nullptr;
-        // _currentNode = object._currentNode;
-        // object._currentNode = nullptr;
     }
 
     ChatBot& ChatBot::operator=(ChatBot &&object){  // move assignment constructor
@@ -113,8 +104,6 @@ ChatBot::~ChatBot()
         object._chatLogic = nullptr;
         _rootNode = object._rootNode;
         object._rootNode = nullptr;
-        // _currentNode = object._currentNode;
-        // object._currentNode = nullptr;
 
         return *this;
     }
@@ -161,15 +150,11 @@ void ChatBot::SetCurrentNode(GraphNode *node)
     // update pointer to current node
     _currentNode = node;
 
-    // std::cout << "SetCurrentNode 1 : " << std::endl;
-
     // select a random node answer (if several answers should exist)
     std::vector<std::string> answers = _currentNode->GetAnswers();
     std::mt19937 generator(int(std::time(0)));
-    // std::cout << "SetCurrentNode 2 : " << std::endl;
     std::uniform_int_distribution<int> dis(0, answers.size() - 1);
     std::string answer = answers.at(dis(generator));
-    // std::cout << "SetCurrentNode 3 : " << std::endl;
 
     // send selected node answer to user
     _chatLogic->SendMessageToUser(answer);

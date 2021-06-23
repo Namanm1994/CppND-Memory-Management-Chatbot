@@ -22,7 +22,6 @@ void GraphNode::AddToken(std::string token)
     _answers.push_back(token);
 }
 
-// void GraphNode::AddEdgeToParentNode(std::weak_ptr<GraphEdge> edge)
 void GraphNode::AddEdgeToParentNode(GraphEdge* edge)
 {
     _parentEdges.push_back(edge);
@@ -38,7 +37,6 @@ void GraphNode::AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge)
 void GraphNode::MoveChatbotHere(ChatBot&& chatbot)
 {
     _chatBot = std::move(chatbot);
-    // std::cout << "MoveChatbotHere : After std::move : " << std::endl;
     _chatBot.SetCurrentNode(this);
 }
 
